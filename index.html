@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TAY LÁI BỤI - THEO DÕI XE</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDsf_S3xkV-N0A08D425YQOqMPJuT15FKU",
+      authDomain: "taylaibui-tracker.firebaseapp.com",
+      databaseURL: "https://taylaibui-tracker-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "taylaibui-tracker",
+      storageBucket: "taylaibui-tracker.appspot.com",
+      messagingSenderId: "1004195839154",
+      appId: "1:1004195839154:web:bf2b1056c3506343549dab"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  <img src="logo.png" class="logo" alt="Logo Tay Lai Bui" />
+  <h1>TAY LÁI BỤI - THEO DÕI XE</h1>
+  <div class="tabs">
+    <button onclick="setFilter('all')" id="tab-all">TẤT CẢ XE</button>
+    <button onclick="setFilter('active')" id="tab-active">XE ĐANG CHẠY</button>
+    <button onclick="setFilter('inactive')" id="tab-inactive">XE NGỪNG</button>
+  </div>
+  <div id="vehicle-list"></div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 40px;
+  text-align: center;
+}
+.logo {
+  height: 80px;
+  margin-bottom: 10px;
+}
+.tabs button {
+  padding: 10px 16px;
+  margin: 4px;
+  background: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.tabs button.active {
+  background: #333;
+  color: white;
+}
+.vehicle {
+  display: inline-block;
+  background: white;
+  padding: 20px;
+  margin: 15px;
+  border-radius: 12px;
+  width: 280px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  position: relative;
+}
+.vehicle h3 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #111;
+}
+.vehicle .timer {
+  font-size: 72px;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #111;
+  transition: color 0.3s ease-in-out;
+}
+.vehicle.warning .timer {
+  animation: blink 1s step-start 0s infinite;
+  color: #b36b00;
+}
+.vehicle.expired .timer {
+  color: #a94442;
+}
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}
+.vehicle button {
+  margin: 6px;
+  padding: 10px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background: #eee;
+  transition: background 0.3s;
+}
+.vehicle button:hover {
+  background: #ccc;
+}
+.vehicle.running {
+  border-left: 6px solid #4caf50;
+}
+.vehicle.warning {
+  background-color: #fff3cd;
+  border-left: 6px solid #ffc107;
+}
+.vehicle.expired {
+  background-color: #f8d7da;
+  border-left: 6px solid #dc3545;
+}
+.vehicle.paused {
+  border-left: 6px solid #6c757d;
+  background-color: #f0f0f0;
+}
+.vehicle.inactive {
+  opacity: 0.5;
+}
+.vehicle.inactive button {
+  pointer-events: none;
+}
+.vehicle.inactive .toggle-btn {
+  pointer-events: auto;
+  opacity: 1;
+  background-color: #4caf50;
+  color: white;
+}
+.vehicle .toggle-btn {
+  background-color: #4caf50;
+  color: white;
+}
+.vehicle.inactive .toggle-btn {
+  background-color: #888;
+}
+.vehicle .btn-hidden {
+  display: none;
+}
+.vehicle .controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
