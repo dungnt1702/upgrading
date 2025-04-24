@@ -103,6 +103,20 @@ function resetTimer(id) {
   db.ref('timers/' + id).update({ endAt: null, paused: false, remaining: null });
 }
 
+function startTimer(id, minutes) {
+  const endAt = Date.now() + minutes * 60000;
+  db.ref('timers/' + id).set({
+    endAt,
+    active: true,
+    minutes,
+    paused: false,
+    warned5: false,
+    warned1: false,
+    notifiedEnd: false
+  });
+  speak(`Xe số ${id} bắt đầu lượt ${minutes} phút`);
+}
+
 function syncData() {
   setInterval(() => {
     for (let i = 1; i <= vehicles; i++) {
