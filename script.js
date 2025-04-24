@@ -123,7 +123,10 @@ function syncData() {
 
       if (secondsLeft <= 0) {
         display.textContent = 'Hết giờ';
-        speak(`Xe số ${i} đã hết thời gian`);
+        if (!data.notifiedEnd && data.minutes) {
+           speak(`Xe số ${i} đã hết lượt ${data.minutes} phút`);
+           db.ref('timers/' + i).update({ notifiedEnd: true });
+        }
       } else {
         display.textContent = formatTime(secondsLeft);
       }
