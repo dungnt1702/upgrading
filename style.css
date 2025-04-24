@@ -33,10 +33,16 @@ body {
   transition: all 0.3s ease-in-out;
   text-align: center;
   position: relative;
-  border: 3px solid #ffc107;
+  border: 10px solid #ccc; /* mặc định - xe chưa chạy */
 }
 .vehicle.running {
-  border-color: #007bff;
+  border-color: #007bff; /* xanh blue */
+}
+.vehicle.warning {
+  border-color: #ffc107; /* vàng khi còn 1 phút */
+}
+.vehicle.expired {
+  border-color: #dc3545; /* đỏ khi hết giờ */
 }
 .vehicle h3 {
   margin-top: 0;
@@ -81,11 +87,9 @@ body {
 }
 .vehicle.warning {
   background-color: #fff3cd;
-  border-left: 6px solid #ffc107;
 }
 .vehicle.expired {
   background-color: #f8d7da;
-  border-left: 6px solid #dc3545;
 }
 .vehicle.paused {
   border-left: 6px solid #6c757d;
