@@ -85,7 +85,6 @@ function startTimer(id, minutes) {
     notifiedEnd: false
   });
   speak(`Xe số ${id} bắt đầu lượt ${minutes} phút`);
-});
 }
 
 function pauseTimer(id) {
