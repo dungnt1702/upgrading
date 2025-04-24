@@ -108,7 +108,14 @@ function resumeTimer(id) {
 }
 
 function resetTimer(id) {
-  db.ref('timers/' + id).update({ endAt: null, paused: false, remaining: null, warned5: false, warned1: false, notifiedEnd: false });
+  db.ref('timers/' + id).update({
+    endAt: null,
+    paused: false,
+    remaining: null,
+    warned5: false,
+    warned1: false,
+    notifiedEnd: false
+  });
 }
 
 function syncData() {
