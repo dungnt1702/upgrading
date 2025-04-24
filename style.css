@@ -33,6 +33,10 @@ body {
   transition: all 0.3s ease-in-out;
   text-align: center;
   position: relative;
+  border: 3px solid #ffc107;
+}
+.vehicle.running {
+  border-color: #007bff;
 }
 .vehicle h3 {
   margin-top: 0;
@@ -71,8 +75,9 @@ body {
 .vehicle button:hover {
   background: #ccc;
 }
-.vehicle.running {
-  border-left: 6px solid #4caf50;
+.vehicle .highlight {
+  background-color: #4caf50;
+  color: white;
 }
 .vehicle.warning {
   background-color: #fff3cd;
@@ -112,4 +117,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+.vehicle .controls-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
