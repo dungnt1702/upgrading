@@ -47,24 +47,23 @@ function renderVehicles() {
     if (data.endAt && !data.paused) div.classList.add('running');
 
     div.innerHTML = `
-  <h3>Xe ${i}</h3>
-  <div class="timer" id="timer-${i}">${data.paused ? 'Tạm hoãn' : (data.endAt ? formatTime(secondsLeft) : '00:00')}</div>
-  <div class="controls">
-    <div class="controls-row">
-      <button onclick="startTimer(${i}, 15)" class="highlight ${data.endAt ? 'btn-hidden' : ''}" id="btn15-${i}">Bắt đầu 15p</button>
-      <button onclick="startTimer(${i}, 30)" class="highlight ${data.endAt ? 'btn-hidden' : ''}" id="btn30-${i}">Bắt đầu 30p</button>
-    </div>
-    <div class="controls-row">
-      <button onclick="resetTimer(${i})">Reset</button>
-      <button onclick="toggleVehicle(${i})" class="toggle-btn">${data.active === false ? 'Bật xe' : 'Tắt xe'}</button>
-    </div>
-    <div class="controls-row">
-      <button onclick="pauseTimer(${i})" id="pause-${i}" class="${data.paused || !data.endAt ? 'btn-hidden' : ''}">Tạm hoãn</button>
-      <button onclick="resumeTimer(${i})" id="resume-${i}" class="${!data.paused ? 'btn-hidden' : ''}">Tiếp tục</button>
-    </div>
-  </div>
-`;
-
+      <h3>Xe ${i}</h3>
+      <div class="timer" id="timer-${i}">${data.paused ? 'Tạm hoãn' : (data.endAt ? formatTime(secondsLeft) : '00:00')}</div>
+      <div class="controls">
+        <div class="controls-row">
+          <button onclick="startTimer(${i}, 15)" class="highlight ${data.endAt ? 'btn-hidden' : ''}" id="btn15-${i}">Bắt đầu 15p</button>
+          <button onclick="startTimer(${i}, 30)" class="highlight ${data.endAt ? 'btn-hidden' : ''}" id="btn30-${i}">Bắt đầu 30p</button>
+        </div>
+        <div class="controls-row">
+          <button onclick="resetTimer(${i})">Reset</button>
+          <button onclick="toggleVehicle(${i})" class="toggle-btn">${data.active === false ? 'Bật xe' : 'Tắt xe'}</button>
+        </div>
+        <div class="controls-row">
+          <button onclick="pauseTimer(${i})" id="pause-${i}" class="${data.paused || !data.endAt ? 'btn-hidden' : ''}">Tạm hoãn</button>
+          <button onclick="resumeTimer(${i})" id="resume-${i}" class="${!data.paused ? 'btn-hidden' : ''}">Tiếp tục</button>
+        </div>
+      </div>
+    `;
     container.appendChild(div);
   }
 }
@@ -76,7 +75,17 @@ function toggleVehicle(id) {
 
 function startTimer(id, minutes) {
   const endAt = Date.now() + minutes * 60000;
-  db.ref('timers/' + id).set({ endAt, active: true, minutes, paused: false });
+  db.ref('timers/' + id).set({
+    endAt,
+    active: true,
+    minutes,
+    paused: false,
+    warned5: false,
+    warned1: false,
+    notifiedEnd: false
+  });
+  speak(`Xe số ${id} bắt đầu lượt ${minutes} phút`);
+});
 }
 
 function pauseTimer(id) {
@@ -100,21 +109,7 @@ function resumeTimer(id) {
 }
 
 function resetTimer(id) {
-  db.ref('timers/' + id).update({ endAt: null, paused: false, remaining: null });
-}
-
-function startTimer(id, minutes) {
-  const endAt = Date.now() + minutes * 60000;
-  db.ref('timers/' + id).set({
-    endAt,
-    active: true,
-    minutes,
-    paused: false,
-    warned5: false,
-    warned1: false,
-    notifiedEnd: false
-  });
-  speak(`Xe số ${id} bắt đầu lượt ${minutes} phút`);
+  db.ref('timers/' + id).update({ endAt: null, paused: false, remaining: null, warned5: false, warned1: false, notifiedEnd: false });
 }
 
 function syncData() {
@@ -138,8 +133,8 @@ function syncData() {
       if (secondsLeft <= 0) {
         display.textContent = 'Hết giờ';
         if (!data.notifiedEnd && data.minutes) {
-           speak(`Xe số ${i} đã hết lượt ${data.minutes} phút`);
-           db.ref('timers/' + i).update({ notifiedEnd: true });
+          speak(`Xe số ${i} đã hết lượt ${data.minutes} phút`);
+          db.ref('timers/' + i).update({ notifiedEnd: true });
         }
       } else {
         display.textContent = formatTime(secondsLeft);
